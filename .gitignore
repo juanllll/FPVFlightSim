@@ -1,0 +1,64 @@
+# =========================================
+# Unity
+# =========================================
+
+# Unity가 자동으로 생성하는 로컬 캐시 및 임시 파일들.
+# 이 폴더들은 프로젝트를 열 때마다 자동으로 다시 생성되므로 절대 Git에 포함하면 안 됩니다.
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Bb]uild/
+/[Bb]uilds/
+/[Ll]ogs/
+/[Mm]emoryCaptures/
+
+# Asset Store에서 다운로드한 패키지 원본 파일들.
+# Packages/manifest.json에 의해 관리되므로 포함할 필요가 없습니다.
+/Assets/AssetStoreTools*
+/Assets/StreamingAssets/aa.meta
+/Assets/StreamingAssets/aa/
+
+# Rider나 Visual Studio 같은 IDE(코드 에디터) 관련 파일들.
+# 이 파일들은 사용자 개인의 설정이므로 팀원과 공유할 필요가 없습니다.
+.vs/
+.vscode/
+.idea/
+*.sln
+*.csproj
+*.unityproj
+*.suo
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# Unity의 내장 버전 관리 시스템 관련 파일 (Collab)
+.collabignore
+
+# OS(운영체제)가 자동으로 생성하는 파일들 (macOS, Windows)
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+
+# 빌드 결과물
+# 최종 게임 파일은 Git으로 관리하는 것이 아닙니다.
+*.apk
+*.aab
+*.app
+*.exe
+*.ipa
+*.ear
+*.war
+
+# 크래시 덤프 파일
+*.crash
