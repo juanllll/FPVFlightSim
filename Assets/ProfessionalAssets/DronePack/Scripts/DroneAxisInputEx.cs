@@ -66,7 +66,7 @@ namespace PA_DronePack
 
         public string _cameraFreeLook;
 
-        public DroneController dcoScript;
+        public DroneControllerEx dcoScript;
 
         public DroneCamera dcScript;
 
@@ -96,7 +96,7 @@ namespace PA_DronePack
 
         private void Awake()
         {
-            dcoScript = GetComponent<DroneController>();
+            dcoScript = GetComponent<DroneControllerEx>();
             dcScript = UnityEngine.Object.FindObjectOfType<DroneCamera>();
             UpdateInput();
         }
@@ -271,8 +271,6 @@ namespace PA_DronePack
                 toggleFollowMode = "F";
                 cameraFreeLook = "LeftAlt";
                 toggleHeadless = "H";
-
-                Debug.Log($"Desktop: {forwardBackward}, {strafeLeftRight}, {riseLower}, {turn}, {cameraRiseLower}, {cameraTurn}, {toggleMotor}, {toggleCameraMode}, {toggleCameraGyro}, {toggleFollowMode}, {cameraFreeLook}, {toggleHeadless}");
             }
 
             if (inputType == InputType.Gamepad)
