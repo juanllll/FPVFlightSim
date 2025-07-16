@@ -49,19 +49,19 @@ namespace PA_DronePackEditor
 
             GUILayout.Space(10f);
             EditorGUILayout.HelpBox("Download the Full version of this DronePack to Unlock more customization options!", MessageType.Info);
-            // EditorGUI.BeginDisabledGroup(disabled: true);
+            EditorGUI.BeginDisabledGroup(disabled: true);
             EditorGUILayout.LabelField("Appearance", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(base.serializedObject.FindProperty("propellers"), true);
             EditorGUILayout.PropertyField(base.serializedObject.FindProperty("propSpinSpeed"));
             EditorGUILayout.PropertyField(base.serializedObject.FindProperty("propStopSpeed"));
             if (dcoScript.headless)
             {
-                // EditorGUI.BeginDisabledGroup(disabled: true);
+                EditorGUI.BeginDisabledGroup(disabled: true);
                 EditorGUILayout.TextField(new GUIContent("Front Tilt", "tilt points disabled in headless mode"), "Tilt Points disabled in Headless mode...");
                 EditorGUILayout.TextField(new GUIContent("Back Tilt", "tilt points disabled in headless mode"), "...");
                 EditorGUILayout.TextField(new GUIContent("Right Tilt", "tilt points disabled in headless mode"), "...");
                 EditorGUILayout.TextField(new GUIContent("Left Tilt", "tilt points disabled in headless mode"), "...");
-                // EditorGUI.EndDisabledGroup();
+                EditorGUI.EndDisabledGroup();
             }
             else
             {

@@ -293,6 +293,8 @@ namespace PA_DronePack
                 rigidBody.drag = _drag;
                 rigidBody.angularDrag = _angularDrag;
             }
+
+            Debug.Log("!!!!");
         }
 
         private void OnCollisionEnter(Collision newObject)
