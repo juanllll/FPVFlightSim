@@ -6020,7 +6020,7 @@ PrefabInstance:
     - target: {fileID: 6737906866455441254, guid: 02ace1365549f294f9673b66c5339cd0,
         type: 3}
       propertyPath: m_Name
-      value: Air Gate (10)
+      value: Air Gate (91)
       objectReference: {fileID: 0}
     - target: {fileID: 8255492985627762305, guid: 02ace1365549f294f9673b66c5339cd0,
         type: 3}
@@ -54905,11 +54905,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraRoutesParent: {fileID: 1640171015}
+  curveResolution: 20
   cameraMoveSpeed: 4
-  transitionToPlayerTime: 1
-  CinematicIntroCamera: {fileID: 2018754154}
-  DiscoCustom: {fileID: 1105345624}
-  DroneCamera: {fileID: 2122655057}
+  playerDrone: {fileID: 1105345624}
+  droneCamera: {fileID: 2122655057}
 --- !u!81 &2018754156
 AudioListener:
   m_ObjectHideFlags: 0
