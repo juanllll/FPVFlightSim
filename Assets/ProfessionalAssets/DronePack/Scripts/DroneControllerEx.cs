@@ -309,6 +309,8 @@ namespace PA_DronePack
                 if (motorFault)
                 {
                     acceleration = 2f;
+                    strafeForce = strafeForce * 0.7f;
+                    liftForce = liftForce * 0.7f;
                     if (!isMotorFaultRunning)
                     {
                         isMotorFaultRunning = true;
