@@ -38,7 +38,10 @@ namespace PA_DronePackEditor
 
             // Fault관련
             dcoScript.motorFault = EditorGUILayout.Toggle(new GUIContent("Is Motor Fault?", "고장"), dcoScript.motorFault);
+            dcoScript.motorFaultTorqueDirection = EditorGUILayout.Vector3Field(new GUIContent("Motor Torque"), dcoScript.motorFaultTorqueDirection);
             dcoScript.motorFaultTorqueMagnitude = EditorGUILayout.FloatField(new GUIContent("Motor fault magnitude", "sets fault magnitude"), dcoScript.motorFaultTorqueMagnitude);
+            dcoScript.spinPropeller = EditorGUILayout.Toggle(new GUIContent("Spin Propeller", "고장"), dcoScript.spinPropeller);
+
 
             dcoScript.currentTorqueDirection = EditorGUILayout.Vector3Field(new GUIContent("Current Torque"), dcoScript.currentTorqueDirection);
             GUILayout.Space(10f);

@@ -141,12 +141,13 @@ namespace PA_DronePack
 
         [Tooltip("states whether or not the drone active on start")]
         public bool motorFault = false;
-        public float motorFaultTorqueMagnitude = 50f;
-        public Vector3 motorFaultTorqueDirection = new Vector3(0.1f, -0.1f, 0.1f);
-        public float motorFaultDuration = 0.5f;       
+        public float motorFaultTorqueMagnitude = 100f;
+        public Vector3 motorFaultTorqueDirection = new Vector3(0.1f, -0.05f, 0.1f);
+        public Vector3 currentTorqueDirection = new Vector3(0.1f, -0.1f, 0.1f);
+        public float motorFaultDuration = 0.3f;
         public float motorRecoveryTime = 2f;
         private bool isMotorFaultRunning = false;
-        private bool spinPropeller = true;
+        public bool spinPropeller = true;
         private Coroutine motorFaultCoroutine;
         public Rigidbody rigidBody;
 
@@ -165,8 +166,6 @@ namespace PA_DronePack
         private float _angularDrag;
 
         private bool _gravity;
-
-        public Vector3 currentTorqueDirection = Vector3.zero;
 
         private void Awake()
         {
@@ -221,11 +220,14 @@ namespace PA_DronePack
             calPropSpeed = (motorOn ? propSpinSpeed : (calPropSpeed * (1f - propStopSpeed / 2f)));
             for (int i = 0; i < propellers.Count; i++)
             {
-                if (i == 2 && spinPropeller==false)
+                if (i == 0 && spinPropeller == false)
                 {
-                    propellers[i].transform.Rotate(0f, 0f, 0f); 
+                    propellers[i].transform.Rotate(0f, 0f, 0f);
                 }
-                propellers[i].transform.Rotate(0f, 0f, calPropSpeed);
+                else
+                {
+                    propellers[i].transform.Rotate(0f, 0f, calPropSpeed);
+                }
             }
 
             if ((bool)flyingSound)
@@ -322,18 +324,18 @@ namespace PA_DronePack
 
         private IEnumerator SimulateRepeatingMotorFault()
         {
-            while (motorFault) 
+            while (motorFault)
             {
                 // --- FAULT ACTIVE PHASE ---
                 Debug.Log("Motor fault ACTIVE!");
                 float currentFaultTime = 0f;
                 spinPropeller = false;
-                motorFaultDuration = 1f;
                 var index = 0;
                 while (currentFaultTime < motorFaultDuration)
                 {
-                    Debug.Log($"============= [{index++}] {motorFaultTorqueDirection * motorFaultTorqueMagnitude}");
-                    rigidBody.AddTorque(motorFaultTorqueDirection * motorFaultTorqueMagnitude, ForceMode.Acceleration);
+                    currentTorqueDirection = motorFaultTorqueDirection * motorFaultTorqueMagnitude;
+                    Debug.Log($"============= [{index++}] {motorFaultTorqueDirection} / {motorFaultTorqueMagnitude}");
+                    rigidBody.AddRelativeTorque(motorFaultTorqueDirection * motorFaultTorqueMagnitude, ForceMode.Acceleration);
                     currentFaultTime += Time.fixedDeltaTime;
                     yield return new WaitForFixedUpdate();
                 }
@@ -342,7 +344,7 @@ namespace PA_DronePack
                 Debug.Log("Motor fault RECOVERING...");
                 yield return new WaitForSeconds(motorRecoveryTime); // Wait for the recovery time
             }
-            isMotorFaultRunning = false; 
+            isMotorFaultRunning = false;
             Debug.Log("Motor fault coroutine finished.");
         }
 
