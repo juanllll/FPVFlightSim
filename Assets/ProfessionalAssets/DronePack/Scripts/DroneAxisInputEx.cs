@@ -68,7 +68,7 @@ namespace PA_DronePack
 
         public DroneControllerEx dcoScript;
 
-        public DroneCamera dcScript;
+        public DroneCameraEx dcScript;
 
         private bool toggleMotorIsKey;
 
@@ -97,7 +97,7 @@ namespace PA_DronePack
         private void Awake()
         {
             dcoScript = GetComponent<DroneControllerEx>();
-            dcScript = UnityEngine.Object.FindObjectOfType<DroneCamera>();
+            dcScript = UnityEngine.Object.FindObjectOfType<DroneCameraEx>();
             UpdateInput();
         }
 
