@@ -32145,6 +32145,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2259753316601443495, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
         type: 3}
+      propertyPath: gustMagnitude
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259753316601443495, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: gustDirection.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259753316601443495, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: gustDirection.y
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259753316601443495, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: gustDirection.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2259753316601443495, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
       propertyPath: motorFaultTorqueMagnitude
       value: 100
       objectReference: {fileID: 0}
@@ -64172,7 +64192,6 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
-  - {fileID: 1243213556}
   - {fileID: 1868723522}
   - {fileID: 653143120}
   - {fileID: 1806640358}
@@ -64185,3 +64204,4 @@ SceneRoots:
   - {fileID: 2018754158}
   - {fileID: 242156869}
   - {fileID: 700613076}
+  - {fileID: 1243213556}

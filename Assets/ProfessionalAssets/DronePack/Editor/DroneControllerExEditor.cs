@@ -37,13 +37,17 @@ namespace PA_DronePackEditor
             GUILayout.Space(10f);
 
             // Fault관련
-            dcoScript.motorFault = EditorGUILayout.Toggle(new GUIContent("Is Motor Fault?", "고장"), dcoScript.motorFault);
-            dcoScript.motorFaultTorqueDirection = EditorGUILayout.Vector3Field(new GUIContent("Motor Torque"), dcoScript.motorFaultTorqueDirection);
+            dcoScript.motorFault = EditorGUILayout.Toggle(new GUIContent("Motor Fault?", "고장"), dcoScript.motorFault);
+            dcoScript.motorFaultTorqueDirection = EditorGUILayout.Vector3Field(new GUIContent("Motor fault torque"), dcoScript.motorFaultTorqueDirection);
             dcoScript.motorFaultTorqueMagnitude = EditorGUILayout.FloatField(new GUIContent("Motor fault magnitude", "sets fault magnitude"), dcoScript.motorFaultTorqueMagnitude);
             dcoScript.spinPropeller = EditorGUILayout.Toggle(new GUIContent("Spin Propeller", "고장"), dcoScript.spinPropeller);
-
-
             dcoScript.currentTorqueDirection = EditorGUILayout.Vector3Field(new GUIContent("Current Torque"), dcoScript.currentTorqueDirection);
+            GUILayout.Space(10f);
+
+            //gust관련
+            dcoScript.gust = EditorGUILayout.Toggle(new GUIContent("Gust?", "돌풍"), dcoScript.gust);
+            dcoScript.gustDirection = EditorGUILayout.Vector3Field(new GUIContent("Gust direction"), dcoScript.gustDirection);
+            dcoScript.gustMagnitude = EditorGUILayout.FloatField(new GUIContent("Gust magnitude"), dcoScript.gustMagnitude);
             GUILayout.Space(10f);
 
             dcoScript.motorOn = EditorGUILayout.Toggle(new GUIContent("Is Motor On?", "states whether or not the drone active on start"), dcoScript.motorOn);

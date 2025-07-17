@@ -140,15 +140,25 @@ namespace PA_DronePack
         public Quaternion startRotation;
 
         [Tooltip("states whether or not the drone active on start")]
+        //motor fault
         public bool motorFault = false;
         public float motorFaultTorqueMagnitude = 100f;
-        public Vector3 motorFaultTorqueDirection = new Vector3(0.1f, -0.05f, 0.1f);
+        public Vector3 motorFaultTorqueDirection = new Vector3(0.1f, -0.03f, 0.08f);
         public Vector3 currentTorqueDirection = new Vector3(0.1f, -0.1f, 0.1f);
         public float motorFaultDuration = 0.3f;
         public float motorRecoveryTime = 2f;
         private bool isMotorFaultRunning = false;
         public bool spinPropeller = true;
         private Coroutine motorFaultCoroutine;
+
+        //gust
+        public bool gust = false;
+        public float gustMagnitude = 100f;
+        public float gustDuration = 0.3f;
+        public Vector3 gustDirection = new Vector3(0, -1f, 0);
+        private Coroutine gustCoroutine;
+
+
         public Rigidbody rigidBody;
 
         private RaycastHit hit;
@@ -306,6 +316,11 @@ namespace PA_DronePack
                         Debug.Log("Motor fault sequence initiated from FixedUpdate.");
                     }
                 }
+                if (gust)
+                {
+                    gustCoroutine = StartCoroutine(SimulateGust());
+                    gust = false;
+                }
                 liftForce = ((liftInput != 0f) ? Mathf.Lerp(liftForce, liftInput, acceleration * 0.2f) : Mathf.Lerp(liftForce, liftInput, deceleration * 0.3f));
                 liftForce = ((Mathf.Abs(liftForce) > 0.01f) ? liftForce : 0f);
                 rigidBody.velocity = new Vector3(rigidBody.velocity.x, liftForce, rigidBody.velocity.z);
@@ -347,7 +362,18 @@ namespace PA_DronePack
             isMotorFaultRunning = false;
             Debug.Log("Motor fault coroutine finished.");
         }
+        private IEnumerator SimulateGust()
+        {
+            float timer = 0f;
+            Vector3 forceVector = gustDirection.normalized * gustMagnitude;
 
+            while (timer < gustDuration)
+            {
+                rigidBody.AddForce(forceVector, ForceMode.Force);
+                timer += Time.deltaTime;
+                yield return null;
+            }
+        }
         public void MotorFault()
         {
             motorFault = true;
