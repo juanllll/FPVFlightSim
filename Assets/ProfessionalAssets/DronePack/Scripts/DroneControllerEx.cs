@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 namespace PA_DronePack
 {
@@ -138,6 +139,15 @@ namespace PA_DronePack
         [HideInInspector]
         public Quaternion startRotation;
 
+        [Tooltip("states whether or not the drone active on start")]
+        public bool motorFault = false;
+        public float motorFaultTorqueMagnitude = 50f;
+        public Vector3 motorFaultTorqueDirection = new Vector3(0.1f, -0.1f, 0.1f);
+        public float motorFaultDuration = 0.5f;       
+        public float motorRecoveryTime = 2f;
+        private bool isMotorFaultRunning = false;
+        private bool spinPropeller = true;
+        private Coroutine motorFaultCoroutine;
         public Rigidbody rigidBody;
 
         private RaycastHit hit;
@@ -155,6 +165,8 @@ namespace PA_DronePack
         private float _angularDrag;
 
         private bool _gravity;
+
+        public Vector3 currentTorqueDirection = Vector3.zero;
 
         private void Awake()
         {
@@ -207,9 +219,13 @@ namespace PA_DronePack
             }
 
             calPropSpeed = (motorOn ? propSpinSpeed : (calPropSpeed * (1f - propStopSpeed / 2f)));
-            foreach (GameObject propeller in propellers)
+            for (int i = 0; i < propellers.Count; i++)
             {
-                propeller.transform.Rotate(0f, 0f, calPropSpeed);
+                if (i == 2 && spinPropeller==false)
+                {
+                    propellers[i].transform.Rotate(0f, 0f, 0f); 
+                }
+                propellers[i].transform.Rotate(0f, 0f, calPropSpeed);
             }
 
             if ((bool)flyingSound)
@@ -278,7 +294,16 @@ namespace PA_DronePack
                     strafeForce = ((Mathf.Abs(direction2.x) > 0.01f) ? direction2.x : 0f);
                     rigidBody.velocity = base.transform.TransformDirection(direction2);
                 }
-
+                if (motorFault)
+                {
+                    acceleration = 2f;
+                    if (!isMotorFaultRunning)
+                    {
+                        isMotorFaultRunning = true;
+                        motorFaultCoroutine = StartCoroutine(SimulateRepeatingMotorFault());
+                        Debug.Log("Motor fault sequence initiated from FixedUpdate.");
+                    }
+                }
                 liftForce = ((liftInput != 0f) ? Mathf.Lerp(liftForce, liftInput, acceleration * 0.2f) : Mathf.Lerp(liftForce, liftInput, deceleration * 0.3f));
                 liftForce = ((Mathf.Abs(liftForce) > 0.01f) ? liftForce : 0f);
                 rigidBody.velocity = new Vector3(rigidBody.velocity.x, liftForce, rigidBody.velocity.z);
@@ -293,6 +318,37 @@ namespace PA_DronePack
                 rigidBody.drag = _drag;
                 rigidBody.angularDrag = _angularDrag;
             }
+        }
+
+        private IEnumerator SimulateRepeatingMotorFault()
+        {
+            while (motorFault) 
+            {
+                // --- FAULT ACTIVE PHASE ---
+                Debug.Log("Motor fault ACTIVE!");
+                float currentFaultTime = 0f;
+                spinPropeller = false;
+                motorFaultDuration = 1f;
+                var index = 0;
+                while (currentFaultTime < motorFaultDuration)
+                {
+                    Debug.Log($"============= [{index++}] {motorFaultTorqueDirection * motorFaultTorqueMagnitude}");
+                    rigidBody.AddTorque(motorFaultTorqueDirection * motorFaultTorqueMagnitude, ForceMode.Acceleration);
+                    currentFaultTime += Time.fixedDeltaTime;
+                    yield return new WaitForFixedUpdate();
+                }
+                spinPropeller = true;
+                // --- RECOVERY PHASE ---
+                Debug.Log("Motor fault RECOVERING...");
+                yield return new WaitForSeconds(motorRecoveryTime); // Wait for the recovery time
+            }
+            isMotorFaultRunning = false; 
+            Debug.Log("Motor fault coroutine finished.");
+        }
+
+        public void MotorFault()
+        {
+            motorFault = true;
         }
 
         private void OnCollisionEnter(Collision newObject)

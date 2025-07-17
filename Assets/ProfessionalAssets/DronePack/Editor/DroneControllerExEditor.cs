@@ -10,7 +10,6 @@ namespace PA_DronePackEditor
     public class DroneControllerExEditor : Editor
     {
         private DroneControllerEx dcoScript;
-
         public void OnEnable()
         {
             dcoScript = (DroneControllerEx)base.target;
@@ -36,6 +35,14 @@ namespace PA_DronePackEditor
             dcoScript.stability = EditorGUILayout.Slider(new GUIContent("Stability", "how eaisly the drone is affected by outside forces"), dcoScript.stability, 0f, 1f);
             dcoScript.turnSensitivty = EditorGUILayout.Slider(new GUIContent("Turn Sensitivity", "how fast the drone rotates"), dcoScript.turnSensitivty, 0.1f, 5f);
             GUILayout.Space(10f);
+
+            // Fault관련
+            dcoScript.motorFault = EditorGUILayout.Toggle(new GUIContent("Is Motor Fault?", "고장"), dcoScript.motorFault);
+            dcoScript.motorFaultTorqueMagnitude = EditorGUILayout.FloatField(new GUIContent("Motor fault magnitude", "sets fault magnitude"), dcoScript.motorFaultTorqueMagnitude);
+
+            dcoScript.currentTorqueDirection = EditorGUILayout.Vector3Field(new GUIContent("Current Torque"), dcoScript.currentTorqueDirection);
+            GUILayout.Space(10f);
+
             dcoScript.motorOn = EditorGUILayout.Toggle(new GUIContent("Is Motor On?", "states whether or not the drone active on start"), dcoScript.motorOn);
             dcoScript.headless = EditorGUILayout.Toggle(new GUIContent("Use Headless Mode?", "makes the drone move relative to an external compass"), dcoScript.headless);
             if (dcoScript.headless)
@@ -48,8 +55,6 @@ namespace PA_DronePackEditor
             }
 
             GUILayout.Space(10f);
-            EditorGUILayout.HelpBox("Download the Full version of this DronePack to Unlock more customization options!", MessageType.Info);
-            EditorGUI.BeginDisabledGroup(disabled: true);
             EditorGUILayout.LabelField("Appearance", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(base.serializedObject.FindProperty("propellers"), true);
             EditorGUILayout.PropertyField(base.serializedObject.FindProperty("propSpinSpeed"));
