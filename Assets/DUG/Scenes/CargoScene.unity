@@ -31906,6 +31906,71 @@ PrefabInstance:
       propertyPath: m_Volume
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: turn
+      value: Mouse X
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: inputType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: riseLower
+      value: Lift
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: cameraTurn
+      value: Mouse X
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: toggleMotor
+      value: Z
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: cameraFreeLook
+      value: LeftAlt
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: toggleHeadless
+      value: H
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: cameraRiseLower
+      value: Mouse Y
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: forwardBackward
+      value: Vertical
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: strafeLeftRight
+      value: Horizontal
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: toggleCameraGyro
+      value: G
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: toggleCameraMode
+      value: C
+      objectReference: {fileID: 0}
+    - target: {fileID: 7178549606336769818, guid: d7ec755afdc8d3f4cb89d5810a28ce07,
+        type: 3}
+      propertyPath: toggleFollowMode
+      value: F
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -60701,6 +60766,7 @@ GameObject:
   - component: {fileID: 2018754157}
   - component: {fileID: 2018754156}
   - component: {fileID: 2018754155}
+  - component: {fileID: 2018754159}
   m_Layer: 0
   m_Name: CinematicIntroCamera
   m_TagString: Untagged
@@ -60799,6 +60865,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2018754159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018754154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0cb9aa70a22847b5925ee5f067c10a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 0}
+  m_OriginBaseGameObject: {fileID: 2018754154}
+  m_CameraFloorOffsetObject: {fileID: 0}
+  m_RequestedTrackingOriginMode: 0
+  m_CameraYOffset: 1.1176
 --- !u!1 &2026789237
 GameObject:
   m_ObjectHideFlags: 0
@@ -63045,6 +63128,7 @@ GameObject:
   - component: {fileID: 2122655061}
   - component: {fileID: 2122655059}
   - component: {fileID: 2122655064}
+  - component: {fileID: 2122655065}
   m_Layer: 0
   m_Name: DroneCamera
   m_TagString: MainCamera
@@ -63209,7 +63293,23 @@ MonoBehaviour:
   gyroscopeEnabled: 0
   invertYAxis: 0
   jitterRigidBodies: []
-  fieldOfView: 60
+--- !u!114 &2122655065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122655057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0cb9aa70a22847b5925ee5f067c10a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Camera: {fileID: 0}
+  m_OriginBaseGameObject: {fileID: 2122655057}
+  m_CameraFloorOffsetObject: {fileID: 0}
+  m_RequestedTrackingOriginMode: 0
+  m_CameraYOffset: 1.1176
 --- !u!1001 &2124136390
 PrefabInstance:
   m_ObjectHideFlags: 0
