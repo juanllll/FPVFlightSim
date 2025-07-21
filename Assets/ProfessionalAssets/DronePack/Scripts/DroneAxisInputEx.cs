@@ -262,7 +262,7 @@ namespace PA_DronePack
                 forwardBackward = "Vertical";
                 strafeLeftRight = "Horizontal";
                 riseLower = "Lift";
-                turn = "Mouse X";
+                turn = "FD_Turn";
                 cameraRiseLower = "Mouse Y";
                 cameraTurn = "Mouse X";
                 toggleMotor = "Z";

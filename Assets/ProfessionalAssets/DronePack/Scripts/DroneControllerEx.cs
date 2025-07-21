@@ -29,7 +29,7 @@ namespace PA_DronePack
         public float acceleration = 0.5f;
 
         [Tooltip("how fast the drone slows down")]
-        public float deceleration = 0.2f;
+        public float deceleration = 2f;
 
         [Tooltip("how eaisly the drone is affected by outside forces")]
         public float stability = 0.1f;
@@ -171,6 +171,8 @@ namespace PA_DronePack
 
         private float liftInput;
 
+        private float turnInput;
+
         private float _drag;
 
         private float _angularDrag;
@@ -199,17 +201,6 @@ namespace PA_DronePack
             }
 
             Transform[] componentsInChildren = base.transform.GetComponentsInChildren<Transform>(includeInactive: true);
-            for (int i = 0; i < componentsInChildren.Length; i++)
-            {
-                if (!(componentsInChildren[i] == base.transform) && (!componentsInChildren[i].GetComponent<ObjectID>() || componentsInChildren[i].GetComponent<ObjectID>().id != "uQ3mR7quTHTw2aAy"))
-                {
-                    base.enabled = false;
-                    base.hideFlags = HideFlags.NotEditable;
-                    Debug.LogError("ERROR: Editing " + base.name + "'s prefab is NOT allowed!\n", base.gameObject);
-                    Debug.LogWarning("Disabling PA_DroneController script...\n<color=#0057af>(Unlock the Full version of the drone pack to customize drones!)</color>", base.gameObject);
-                    return;
-                }
-            }
 
             if (headless && !compass)
             {
@@ -297,6 +288,16 @@ namespace PA_DronePack
                         {
                             rigidBody.AddForceAtPosition(Vector3.down * (Mathf.Abs(strafeInput) * 0.3f), leftTilt.position, ForceMode.Acceleration);
                         }
+                        if (Mathf.Abs(turnInput) > 0.01f) // If there's active turning input
+                        {
+                            // Accelerate 'turnForce' towards the target speed
+                            turnForce = Mathf.Lerp(turnForce, turnInput * turnSensitivty, acceleration * Time.fixedDeltaTime);
+                        }
+                        else // If input is released (inputTurnValue is effectively 0)
+                        {
+                            // Decelerate 'turnForce' towards zero
+                            turnForce = Mathf.Lerp(turnForce, 0f, deceleration * 10f * Time.fixedDeltaTime);
+                        }
                     }
 
                     Vector3 direction2 = base.transform.InverseTransformDirection(rigidBody.velocity);
@@ -328,7 +329,7 @@ namespace PA_DronePack
                 rigidBody.velocity = new Vector3(rigidBody.velocity.x, liftForce, rigidBody.velocity.z);
                 rigidBody.angularVelocity *= 1f - Mathf.Clamp(InputMagnitude(), 0.2f, 1f) * stability;
                 Quaternion quaternion = Quaternion.FromToRotation(base.transform.up, Vector3.up);
-                rigidBody.AddTorque(new Vector3(quaternion.x, 0f, quaternion.z) * 100f, ForceMode.Acceleration);
+                rigidBody.AddTorque(new Vector3(quaternion.x, 0f, quaternion.z) * 50f, ForceMode.Acceleration);
                 rigidBody.angularVelocity = new Vector3(rigidBody.angularVelocity.x, turnForce, rigidBody.angularVelocity.z);
             }
             else
@@ -469,7 +470,7 @@ namespace PA_DronePack
 
         public void TurnInput(float input)
         {
-            turnForce = input * turnSensitivty;
+            turnInput = input;
         }
 
         public void ResetDronePosition()

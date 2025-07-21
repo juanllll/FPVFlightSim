@@ -31,7 +31,7 @@ namespace PA_DronePackEditor
             dcoScript.lowerSpeed = EditorGUILayout.FloatField(new GUIContent("Height Lower Speed", "sets the drone's max lower speed"), dcoScript.lowerSpeed);
             GUILayout.Space(10f);
             dcoScript.acceleration = EditorGUILayout.Slider(new GUIContent("Acceleration", "how fast the drone speeds up"), dcoScript.acceleration, 0.1f, 1f);
-            dcoScript.deceleration = EditorGUILayout.Slider(new GUIContent("Deceleration", "how fast the drone slows down"), dcoScript.deceleration, 0.1f, 1f);
+            dcoScript.deceleration = EditorGUILayout.Slider(new GUIContent("Deceleration", "how fast the drone slows down"), dcoScript.deceleration, 0.1f, 3f);
             dcoScript.stability = EditorGUILayout.Slider(new GUIContent("Stability", "how eaisly the drone is affected by outside forces"), dcoScript.stability, 0f, 1f);
             dcoScript.turnSensitivty = EditorGUILayout.Slider(new GUIContent("Turn Sensitivity", "how fast the drone rotates"), dcoScript.turnSensitivty, 0.1f, 5f);
             GUILayout.Space(10f);

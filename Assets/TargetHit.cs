@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using PA_DronePack;
 using UnityEngine;
 
 public class TargetHit : MonoBehaviour
@@ -8,9 +9,12 @@ public class TargetHit : MonoBehaviour
     public GameObject winMessagePanel;
     public GameObject loseMessagePanel;
     public GameObject gameUI;
-    public GameObject drone; 
-    public MonoBehaviour[] playerControlScripts; 
+    public GameObject drone;
+    public GameObject droneCamera;
+    public DroneControllerEx droneControlScript;
+    public MonoBehaviour[] playerControlScripts;
     private bool hasWon = false;
+    public GameObject explosionPrefab;
     public TruckMovement truckMovementScript;
     // Start is called before the first frame update
     void Awake()
@@ -26,6 +30,7 @@ public class TargetHit : MonoBehaviour
     {
         if (collision.gameObject.CompareTag(truckTag) && !hasWon && truckMovementScript.shouldMove)
         {
+
             hasWon = true; // Set win flag
             Debug.Log("Collision detected! Drone hit the truck. Player Wins!");
 
@@ -45,9 +50,18 @@ public class TargetHit : MonoBehaviour
 
             if (drone != null)
             {
+                droneCamera.transform.SetParent(null);
+                explosionPrefab.transform.SetParent(null);
+            }
+            if (explosionPrefab != null)
+            {
+                // GameObject instantiatedExplosion = Instantiate(explosionPrefab, drone.transform);
+                // instantiatedExplosion.transform.localPosition = Vector3.zero; // Or adjust for desired offset
+                // instantiatedExplosion.transform.localRotation = Quaternion.identity; // No local rotation
+                var particle = explosionPrefab.GetComponent<ParticleSystem>();
+                particle.Play();
                 drone.SetActive(false);
             }
-
 
             // 3. Stop all player controls
             foreach (MonoBehaviour script in playerControlScripts)

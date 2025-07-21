@@ -11,11 +11,10 @@ public class TruckMovement : MonoBehaviour
     [Header("Audio Settings")]
     public AudioClip engineLoopSound;    // Assign your looping engine sound here
     private AudioSource audioSource;     // Reference to the AudioSource component
-
     public bool shouldMove = false;
     private bool isMovingSoundPlaying = false; // To prevent starting loop multiple times
     public GameObject loseMessagePanel;
-    public GameObject drone; 
+    public GameObject drone;
 
     void Awake() // Use Awake to get component reference
     {
@@ -61,7 +60,7 @@ public class TruckMovement : MonoBehaviour
     public void loseScreen()
     {
         loseMessagePanel.SetActive(true);
-         if (drone != null)
+        if (drone != null)
         {
             drone.SetActive(false);
         }
