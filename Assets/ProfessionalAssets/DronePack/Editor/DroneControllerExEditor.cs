@@ -50,6 +50,20 @@ namespace PA_DronePackEditor
             dcoScript.gustMagnitude = EditorGUILayout.FloatField(new GUIContent("Gust magnitude"), dcoScript.gustMagnitude);
             GUILayout.Space(10f);
 
+            //fpv 관련
+            dcoScript.maxThrottleForce = EditorGUILayout.FloatField(new GUIContent("Max Throttle"), dcoScript.maxThrottleForce);
+            dcoScript.throttleChangeRate = EditorGUILayout.FloatField(new GUIContent("Throttle Change Rate"), dcoScript.throttleChangeRate);
+            dcoScript.throttleForce = EditorGUILayout.Slider(new GUIContent("Throttle"), dcoScript.throttleForce, 0f, dcoScript.maxThrottleForce);
+            GUILayout.Space(10f);
+
+            dcoScript.maxPitchRate = EditorGUILayout.FloatField(new GUIContent("Max Pitch Rate"), dcoScript.maxPitchRate);
+            dcoScript.pitchAccelerationRate = EditorGUILayout.FloatField(new GUIContent("Pitch Acceleration Rate"), dcoScript.pitchAccelerationRate);
+            dcoScript.pitchDecelerationRate = EditorGUILayout.FloatField(new GUIContent("Pitch Deceleration Rate"), dcoScript.pitchDecelerationRate);
+            dcoScript.maxRollRate = EditorGUILayout.FloatField(new GUIContent("Max Roll Rate"), dcoScript.maxRollRate);
+            dcoScript.rollAccelerationRate = EditorGUILayout.FloatField(new GUIContent("Roll Acceleration Rate"), dcoScript.rollAccelerationRate);
+            dcoScript.rollDecelerationRate = EditorGUILayout.FloatField(new GUIContent("Roll Deceleration Rate"), dcoScript.rollDecelerationRate);
+            GUILayout.Space(10f);
+
             dcoScript.motorOn = EditorGUILayout.Toggle(new GUIContent("Is Motor On?", "states whether or not the drone active on start"), dcoScript.motorOn);
             dcoScript.headless = EditorGUILayout.Toggle(new GUIContent("Use Headless Mode?", "makes the drone move relative to an external compass"), dcoScript.headless);
             if (dcoScript.headless)

@@ -7,6 +7,28 @@ namespace PA_DronePack
 
     public class DroneControllerEx : MonoBehaviour
     {
+        [Tooltip("Maximum upward force applied by the throttle.")]
+        public float maxThrottleForce = 20f;
+        [Tooltip("Throttle")]
+        public float throttleForce;
+        [Tooltip("Throttle change rate")]
+        public float throttleChangeRate = 10f;
+        [Tooltip("Maximum pitch rate (degrees per second).")]
+        public float maxPitchRate = 0.01f;
+        [Tooltip("Maximum roll rate (degrees per second).")]
+        public float maxRollRate = 0.01f;
+        [Tooltip("How fast the drone accelerates to its max pitch rate.")]
+        public float pitchAccelerationRate = 0.1f;
+        [Tooltip("How slowly the drone decelerates its pitch after input is released.")]
+        public float pitchDecelerationRate = 100f;
+        [Tooltip("How fast the drone accelerates to its max roll rate.")]
+        public float rollAccelerationRate = 0.1f;
+        [Tooltip("How slowly the drone decelerates its roll after input is released.")]
+        public float rollDecelerationRate = 100f;
+        private float inputPitchValue;
+        private float inputRollValue;
+        private float currentPitchAngularVelocity;
+        private float currentRollAngularVelocity;
         [Tooltip("sets the drone's max forward speed")]
         public float forwardSpeed = 7f;
 
@@ -242,9 +264,6 @@ namespace PA_DronePack
         {
             if (motorOn)
             {
-                rigidBody.useGravity = false;
-                rigidBody.drag = 0f;
-                rigidBody.angularDrag = 0f;
                 if (headless)
                 {
                     if (!compass)
@@ -269,25 +288,26 @@ namespace PA_DronePack
                 {
                     if (groundDistance > 0.2f)
                     {
-                        if (driveInput > 0f)
+                        float desiredPitchAngularVelocity = inputPitchValue * maxPitchRate; // Invert input for pitch if needed
+                        if (Mathf.Abs(inputPitchValue) > 0.01f)
                         {
-                            rigidBody.AddForceAtPosition(Vector3.down * (Mathf.Abs(driveInput) * 0.3f), frontTilt.position, ForceMode.Acceleration);
+                            currentPitchAngularVelocity = Mathf.Lerp(currentPitchAngularVelocity, desiredPitchAngularVelocity, pitchAccelerationRate * Time.fixedDeltaTime);
+                        }
+                        else
+                        {
+                            currentPitchAngularVelocity = Mathf.Lerp(currentPitchAngularVelocity, 0f, pitchDecelerationRate * Time.fixedDeltaTime);
                         }
 
-                        if (driveInput < 0f)
+                        float desiredRollAngularVelocity = inputRollValue * maxRollRate; // Invert input for roll if needed
+                        if (Mathf.Abs(inputRollValue) > 0.01f)
                         {
-                            rigidBody.AddForceAtPosition(Vector3.down * (Mathf.Abs(driveInput) * 0.3f), backTilt.position, ForceMode.Acceleration);
+                            currentRollAngularVelocity = Mathf.Lerp(currentRollAngularVelocity, desiredRollAngularVelocity, rollAccelerationRate * Time.fixedDeltaTime);
+                        }
+                        else
+                        {
+                            currentRollAngularVelocity = Mathf.Lerp(currentRollAngularVelocity, 0f, rollDecelerationRate * Time.fixedDeltaTime);
                         }
 
-                        if (strafeInput > 0f)
-                        {
-                            rigidBody.AddForceAtPosition(Vector3.down * (Mathf.Abs(strafeInput) * 0.3f), rightTilt.position, ForceMode.Acceleration);
-                        }
-
-                        if (strafeInput < 0f)
-                        {
-                            rigidBody.AddForceAtPosition(Vector3.down * (Mathf.Abs(strafeInput) * 0.3f), leftTilt.position, ForceMode.Acceleration);
-                        }
                         if (Mathf.Abs(turnInput) > 0.01f) // If there's active turning input
                         {
                             // Accelerate 'turnForce' towards the target speed
@@ -299,19 +319,18 @@ namespace PA_DronePack
                             turnForce = Mathf.Lerp(turnForce, 0f, deceleration * 10f * Time.fixedDeltaTime);
                         }
                     }
+                    Vector3 localDesiredAngularVelocity = new Vector3(currentPitchAngularVelocity, turnForce, currentRollAngularVelocity);
 
-                    Vector3 direction2 = base.transform.InverseTransformDirection(rigidBody.velocity);
-                    direction2.z = ((driveInput != 0f) ? Mathf.Lerp(direction2.z, driveInput, acceleration * 0.3f) : Mathf.Lerp(direction2.z, driveInput, deceleration * 0.2f));
-                    driveForce = ((Mathf.Abs(direction2.z) > 0.01f) ? direction2.z : 0f);
-                    direction2.x = ((strafeInput != 0f) ? Mathf.Lerp(direction2.x, strafeInput, acceleration * 0.3f) : Mathf.Lerp(direction2.x, strafeInput, deceleration * 0.2f));
-                    strafeForce = ((Mathf.Abs(direction2.x) > 0.01f) ? direction2.x : 0f);
-                    rigidBody.velocity = base.transform.TransformDirection(direction2);
+                    // 2. Convert this local vector into a world-space vector using the drone's current orientation
+                    Vector3 worldAngularVelocity = transform.TransformDirection(localDesiredAngularVelocity);
+
+                    // 3. Assign the world-space angular velocity to the Rigidbody
+                    rigidBody.angularVelocity = worldAngularVelocity;
                 }
                 if (motorFault)
                 {
                     acceleration = 2f;
-                    strafeForce = strafeForce * 0.7f;
-                    liftForce = liftForce * 0.7f;
+                    maxThrottleForce = maxThrottleForce * 0.7f;
                     if (!isMotorFaultRunning)
                     {
                         isMotorFaultRunning = true;
@@ -324,16 +343,14 @@ namespace PA_DronePack
                     gustCoroutine = StartCoroutine(SimulateGust());
                     gust = false;
                 }
-                liftForce = ((liftInput != 0f) ? Mathf.Lerp(liftForce, liftInput, acceleration * 0.2f) : Mathf.Lerp(liftForce, liftInput, deceleration * 0.3f));
-                liftForce = ((Mathf.Abs(liftForce) > 0.01f) ? liftForce : 0f);
-                rigidBody.velocity = new Vector3(rigidBody.velocity.x, liftForce, rigidBody.velocity.z);
-                rigidBody.angularVelocity *= 1f - Mathf.Clamp(InputMagnitude(), 0.2f, 1f) * stability;
-                Quaternion quaternion = Quaternion.FromToRotation(base.transform.up, Vector3.up);
-                rigidBody.AddTorque(new Vector3(quaternion.x, 0f, quaternion.z) * 50f, ForceMode.Acceleration);
-                rigidBody.angularVelocity = new Vector3(rigidBody.angularVelocity.x, turnForce, rigidBody.angularVelocity.z);
+                float throttleDelta = liftInput * throttleChangeRate * Time.fixedDeltaTime;
+                throttleForce += throttleDelta;
+                throttleForce = Mathf.Clamp(throttleForce, 0f, maxThrottleForce);
+                rigidBody.AddForce(transform.up * throttleForce, ForceMode.Acceleration);
             }
             else
             {
+                throttleForce = 0f;
                 rigidBody.useGravity = _gravity;
                 rigidBody.drag = _drag;
                 rigidBody.angularDrag = _angularDrag;
@@ -421,50 +438,20 @@ namespace PA_DronePack
 
         public void DriveInput(float input)
         {
-            if (input > 0f)
-            {
-                driveInput = input * forwardSpeed;
-            }
-            else if (input < 0f)
-            {
-                driveInput = input * backwardSpeed;
-            }
-            else
-            {
-                driveInput = 0f;
-            }
+            inputPitchValue = input;
         }
 
         public void StrafeInput(float input)
         {
-            if (input > 0f)
-            {
-                strafeInput = input * rightSpeed;
-            }
-            else if (input < 0f)
-            {
-                strafeInput = input * leftSpeed;
-            }
-            else
-            {
-                strafeInput = 0f;
-            }
+            inputRollValue = input;
         }
 
         public void LiftInput(float input)
         {
-            if (input > 0f)
+            liftInput = input;
+            if (liftInput > 0f)
             {
-                liftInput = input * riseSpeed;
                 motorOn = true;
-            }
-            else if (input < 0f)
-            {
-                liftInput = input * lowerSpeed;
-            }
-            else
-            {
-                liftInput = 0f;
             }
         }
 
