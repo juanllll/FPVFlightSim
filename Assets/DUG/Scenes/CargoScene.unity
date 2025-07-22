@@ -2480,12 +2480,12 @@ PrefabInstance:
     - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: maxRollRate
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: maxPitchRate
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
@@ -2495,22 +2495,32 @@ PrefabInstance:
     - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: maxThrottleForce
-      value: 20
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: throttleChangeRate
-      value: 2
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
+        type: 3}
+      propertyPath: rollAccelerationRate
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: rollDecelerationRate
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
+        type: 3}
+      propertyPath: pitchAccelerationRate
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: pitchDecelerationRate
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3498560071562245477, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}

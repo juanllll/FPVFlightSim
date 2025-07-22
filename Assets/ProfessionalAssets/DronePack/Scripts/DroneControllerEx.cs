@@ -298,7 +298,7 @@ namespace PA_DronePack
                             currentPitchAngularVelocity = Mathf.Lerp(currentPitchAngularVelocity, 0f, pitchDecelerationRate * Time.fixedDeltaTime);
                         }
 
-                        float desiredRollAngularVelocity = inputRollValue * maxRollRate; // Invert input for roll if needed
+                        float desiredRollAngularVelocity = -inputRollValue * maxRollRate; // Invert input for roll if needed
                         if (Mathf.Abs(inputRollValue) > 0.01f)
                         {
                             currentRollAngularVelocity = Mathf.Lerp(currentRollAngularVelocity, desiredRollAngularVelocity, rollAccelerationRate * Time.fixedDeltaTime);
