@@ -64,6 +64,12 @@ namespace PA_DronePackEditor
             dcoScript.rollDecelerationRate = EditorGUILayout.FloatField(new GUIContent("Roll Deceleration Rate"), dcoScript.rollDecelerationRate);
             GUILayout.Space(10f);
 
+            dcoScript.throttleExpo = EditorGUILayout.FloatField(new GUIContent("throttle expo control"), dcoScript.throttleExpo);
+            dcoScript.turnExpo = EditorGUILayout.FloatField(new GUIContent("turn expo control"), dcoScript.turnExpo);
+            dcoScript.pitchExpo = EditorGUILayout.FloatField(new GUIContent("pitch expo control"), dcoScript.pitchExpo);
+            dcoScript.rollExpo = EditorGUILayout.FloatField(new GUIContent("roll expo control"), dcoScript.rollExpo);
+            GUILayout.Space(10f);
+
             dcoScript.motorOn = EditorGUILayout.Toggle(new GUIContent("Is Motor On?", "states whether or not the drone active on start"), dcoScript.motorOn);
             dcoScript.headless = EditorGUILayout.Toggle(new GUIContent("Use Headless Mode?", "makes the drone move relative to an external compass"), dcoScript.headless);
             if (dcoScript.headless)

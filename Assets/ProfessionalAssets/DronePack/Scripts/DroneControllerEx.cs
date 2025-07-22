@@ -25,6 +25,16 @@ namespace PA_DronePack
         public float rollAccelerationRate = 0.1f;
         [Tooltip("How slowly the drone decelerates its roll after input is released.")]
         public float rollDecelerationRate = 100f;
+        public float throttleExpo = 0.5f;
+        public float turnExpo = 0.5f;
+        public float rollExpo = 0.5f;
+        public float pitchExpo = 0.5f;
+        [Tooltip("The throttleForce value where the drone ideally hovers. Find this by trial and error.")]
+        public float hoverThrottlePoint = 10; // You need to find this value!
+        [Tooltip("The radius around the hoverThrottlePoint where throttle input becomes less sensitive.")]
+        public float hoverSensitivityZone = 2f; // E.g., if hoverPoint is 10, zone is 2, less sensitive between 8 and 12.
+        [Tooltip("The multiplier for throttleChangeRate when within the hover sensitivity zone (0 to 1).")]
+        [Range(0f, 1f)] public float hoverSensitivityMultiplier = 0.2f; // 0.2 means 20% of original sensitivity
         private float inputPitchValue;
         private float inputRollValue;
         private float currentPitchAngularVelocity;
@@ -330,7 +340,6 @@ namespace PA_DronePack
                 if (motorFault)
                 {
                     acceleration = 2f;
-                    maxThrottleForce = maxThrottleForce * 0.7f;
                     if (!isMotorFaultRunning)
                     {
                         isMotorFaultRunning = true;
@@ -343,7 +352,23 @@ namespace PA_DronePack
                     gustCoroutine = StartCoroutine(SimulateGust());
                     gust = false;
                 }
-                float throttleDelta = liftInput * throttleChangeRate * Time.fixedDeltaTime;
+                // --- NEW: Dynamic Throttle Change Rate based on current throttleForce ---
+                float effectiveThrottleChangeRate = throttleChangeRate;
+                // Calculate distance from hover point
+                float distanceFromHover = Mathf.Abs(throttleForce - hoverThrottlePoint);
+
+                // If within the sensitivity zone, reduce the effective change rate
+                if (distanceFromHover < hoverSensitivityZone)
+                {
+                    // Linearly interpolate the sensitivity multiplier from 1 (outside zone edge) to hoverSensitivityMultiplier (at hover point)
+                    // Mathf.InverseLerp gives a 0-1 value: 0 when distanceFromHover is 'hoverSensitivityZone', 1 when it's 0 (at hoverPoint)
+                    float blend = Mathf.InverseLerp(hoverSensitivityZone, 0f, distanceFromHover);
+                    effectiveThrottleChangeRate = Mathf.Lerp(throttleChangeRate, throttleChangeRate * hoverSensitivityMultiplier, blend);
+                }
+                // --- END NEW ---
+
+
+                float throttleDelta = liftInput * effectiveThrottleChangeRate * Time.fixedDeltaTime; // Use effective rate
                 throttleForce += throttleDelta;
                 throttleForce = Mathf.Clamp(throttleForce, 0f, maxThrottleForce);
                 rigidBody.AddForce(transform.up * throttleForce, ForceMode.Acceleration);
@@ -438,17 +463,17 @@ namespace PA_DronePack
 
         public void DriveInput(float input)
         {
-            inputPitchValue = input;
+            inputPitchValue = input * (1f - pitchExpo) + (input * input * input * input * input) * pitchExpo;
         }
 
         public void StrafeInput(float input)
         {
-            inputRollValue = input;
+            inputRollValue = input * (1f - rollExpo) + (input * input * input * input * input) * rollExpo;
         }
 
         public void LiftInput(float input)
         {
-            liftInput = input;
+            liftInput = input * (1f - throttleExpo) + (input * input * input * input * input) * throttleExpo;
             if (liftInput > 0f)
             {
                 motorOn = true;
@@ -457,7 +482,7 @@ namespace PA_DronePack
 
         public void TurnInput(float input)
         {
-            turnInput = input;
+            turnInput = input * (1f - turnExpo) + (input * input * input) * turnExpo;
         }
 
         public void ResetDronePosition()
