@@ -50,7 +50,7 @@ public class ShowAltitude : MonoBehaviour
 
             // Update the TextMeshProUGUI component with the altitude
             // Using F2 to format to 2 decimal places for readability
-            altitudeText.text = $"Altitude: {currentAltitude:F2} m Speed: {currentSpeed:F2} m/s";
+            altitudeText.text = $"Altitude: {currentAltitude:F2}m \nSpeed: {currentSpeed:F2}m/s";
         }
     }
 }
