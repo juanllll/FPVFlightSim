@@ -30,9 +30,9 @@ namespace PA_DronePack
         public float rollExpo = 0.5f;
         public float pitchExpo = 0.5f;
         [Tooltip("The throttleForce value where the drone ideally hovers. Find this by trial and error.")]
-        public float hoverThrottlePoint = 10; // You need to find this value!
+        public float hoverThrottlePoint = 11; // You need to find this value!
         [Tooltip("The radius around the hoverThrottlePoint where throttle input becomes less sensitive.")]
-        public float hoverSensitivityZone = 2f; // E.g., if hoverPoint is 10, zone is 2, less sensitive between 8 and 12.
+        public float hoverSensitivityZone = 3f; // E.g., if hoverPoint is 10, zone is 2, less sensitive between 8 and 12.
         [Tooltip("The multiplier for throttleChangeRate when within the hover sensitivity zone (0 to 1).")]
         [Range(0f, 1f)] public float hoverSensitivityMultiplier = 0.2f; // 0.2 means 20% of original sensitivity
         private float inputPitchValue;
@@ -365,9 +365,6 @@ namespace PA_DronePack
                     float blend = Mathf.InverseLerp(hoverSensitivityZone, 0f, distanceFromHover);
                     effectiveThrottleChangeRate = Mathf.Lerp(throttleChangeRate, throttleChangeRate * hoverSensitivityMultiplier, blend);
                 }
-                // --- END NEW ---
-
-
                 float throttleDelta = liftInput * effectiveThrottleChangeRate * Time.fixedDeltaTime; // Use effective rate
                 throttleForce += throttleDelta;
                 throttleForce = Mathf.Clamp(throttleForce, 0f, maxThrottleForce);
