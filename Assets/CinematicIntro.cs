@@ -26,7 +26,18 @@ public class CinematicIntroCamera : MonoBehaviour
         List<Transform> controlPoints = new List<Transform>();
         for (int i = 0; i < cameraRoutesParent.childCount; i++)
         {
-            controlPoints.Add(cameraRoutesParent.GetChild(i));
+            Transform currentChild = cameraRoutesParent.GetChild(i);
+
+            Transform grandchildTransform = currentChild.GetChild(0);
+
+            if (grandchildTransform != null)
+            {
+                controlPoints.Add(grandchildTransform);
+            }
+            else
+            {
+                Debug.LogWarning($"Child '{currentChild.name}' of '{cameraRoutesParent.name}' does not contain a grandchild. Skipping this point.", this);
+            }
         }
         // Ensure consistent order, crucial for spline calculations
         controlPoints = controlPoints.OrderBy(t => t.name).ToList();
@@ -48,7 +59,7 @@ public class CinematicIntroCamera : MonoBehaviour
 
 
         transform.position = splinePathPoints[0];
-        transform.rotation = Quaternion.Euler(90f, 0f, 0f); 
+        transform.rotation = Quaternion.Euler(90f, 0f, 0f);
         this.gameObject.SetActive(true);
     }
 
@@ -63,7 +74,7 @@ public class CinematicIntroCamera : MonoBehaviour
     IEnumerator PlayCinematicIntro()
     {
 
-        float currentPathTime = 0f; 
+        float currentPathTime = 0f;
 
         while (currentPathTime < 1f)
         {
@@ -133,9 +144,9 @@ public class CinematicIntroCamera : MonoBehaviour
     {
         if (splinePathPoints.Length == 0) return Vector3.zero;
         int index = Mathf.FloorToInt(t * (splinePathPoints.Length - 1));
-        index = Mathf.Clamp(index, 0, splinePathPoints.Length - 2); 
+        index = Mathf.Clamp(index, 0, splinePathPoints.Length - 2);
 
-        float segmentT = (t * (splinePathPoints.Length - 1)) - index; 
+        float segmentT = (t * (splinePathPoints.Length - 1)) - index;
 
         return Vector3.Lerp(splinePathPoints[index], splinePathPoints[index + 1], segmentT);
     }

@@ -11,11 +11,13 @@ TagManager:
   - Light1
   - Light2
   - Alter
+  - Target
+  - Anchor
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Overlay UI
   - Water
   - UI
   - 

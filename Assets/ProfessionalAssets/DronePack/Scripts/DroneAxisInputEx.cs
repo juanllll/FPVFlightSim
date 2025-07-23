@@ -298,10 +298,10 @@ namespace PA_DronePack
                 cameraRiseLower = "";
                 cameraTurn = "OVR LeftJoystick X";
                 toggleMotor = "OVR RightButton 0";
-                toggleCameraMode = "C";
+                toggleCameraMode = "OVR RightTrigger";
                 toggleCameraGyro = "G";
                 toggleFollowMode = "F";
-                cameraFreeLook = "OVR RightTrigger";
+                cameraFreeLook = "C";
                 toggleHeadless = "OVR RightGrip";
             }
 

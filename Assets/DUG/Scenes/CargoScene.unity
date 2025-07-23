@@ -2657,7 +2657,7 @@ PrefabInstance:
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: turn
-      value: OVR LeftJoystick X
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
@@ -2667,27 +2667,27 @@ PrefabInstance:
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: riseLower
-      value: OVR LeftJoystick Y
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: cameraTurn
-      value: OVR LeftJoystick X
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: toggleMotor
-      value: OVR RightButton 0
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: cameraFreeLook
-      value: OVR RightTrigger
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: toggleHeadless
-      value: OVR RightGrip
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
@@ -2697,12 +2697,12 @@ PrefabInstance:
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: forwardBackward
-      value: OVR RightJoystick Y
+      value: Vertical
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: strafeLeftRight
-      value: OVR RightJoystick X
+      value: Horiozontal
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
@@ -2717,17 +2717,17 @@ PrefabInstance:
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: toggleCameraGyro
-      value: G
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: toggleCameraMode
-      value: C
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5906168856485224475, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
       propertyPath: toggleFollowMode
-      value: F
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9109788170527915798, guid: 1b43bdaa97d9a6a479ae4333b3bd1d42,
         type: 3}
@@ -11337,7 +11337,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967287
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -14852,7 +14852,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 657086648}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: WinScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25351,7 +25351,7 @@ GameObject:
   - component: {fileID: 1004673903}
   - component: {fileID: 1004673902}
   - component: {fileID: 1004673904}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Dot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28281,7 +28281,7 @@ GameObject:
   - component: {fileID: 1131165857}
   - component: {fileID: 1131165856}
   - component: {fileID: 1131165858}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34366,7 +34366,7 @@ GameObject:
   - component: {fileID: 1459291059}
   - component: {fileID: 1459291061}
   - component: {fileID: 1459291060}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34441,7 +34441,7 @@ GameObject:
   - component: {fileID: 1459482319}
   - component: {fileID: 1459482321}
   - component: {fileID: 1459482320}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -37314,7 +37314,7 @@ GameObject:
   - component: {fileID: 1597279166}
   - component: {fileID: 1597279168}
   - component: {fileID: 1597279167}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: line
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38155,11 +38155,10 @@ Transform:
   m_GameObject: {fileID: 1640171014}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1666247382}
   - {fileID: 1616685068}
   - {fileID: 1392750770}
   - {fileID: 103291728}
@@ -38184,7 +38183,7 @@ GameObject:
   - component: {fileID: 1653187249}
   - component: {fileID: 1653187251}
   - component: {fileID: 1653187250}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38423,51 +38422,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1665395048}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1666247381
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1666247382}
-  - component: {fileID: 1666247383}
-  m_Layer: 0
-  m_Name: StartPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1666247382
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1666247381}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 83.9, y: 0, z: 19.8}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1640171015}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1666247383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1666247381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4c007742956b06448933a2ceee2be1b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathPoint: {fileID: 1666247382}
 --- !u!1001 &1674649585
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39747,7 +39701,7 @@ GameObject:
   - component: {fileID: 1775392692}
   - component: {fileID: 1775392691}
   - component: {fileID: 1775392690}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40408,7 +40362,8 @@ GameObject:
   - component: {fileID: 1806640357}
   - component: {fileID: 1806640356}
   - component: {fileID: 1806640355}
-  m_Layer: 5
+  - component: {fileID: 1806640359}
+  m_Layer: 3
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40454,7 +40409,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!223 &1806640357
 Canvas:
   m_ObjectHideFlags: 0
@@ -40464,7 +40419,7 @@ Canvas:
   m_GameObject: {fileID: 1806640354}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 2
   m_Camera: {fileID: 0}
   m_PlaneDistance: 0.2
   m_PixelPerfect: 0
@@ -40487,7 +40442,7 @@ RectTransform:
   m_GameObject: {fileID: 1806640354}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 657086648}
@@ -40498,9 +40453,37 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 1080, y: 540}
+  m_SizeDelta: {x: 2160, y: 1080}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1806640359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1806640354}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee10491ef6d5d1d49a270cf6b09bdc19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enableMipmapping: 0
+  _dynamicResolution: 1
+  _redrawResolutionThreshold: 2147483647
+  rectTransform: {fileID: 1806640358}
+  maxTextureSize: 2048
+  manualRedraw: 0
+  renderInterval: 1
+  renderIntervalFrameOffset: 0
+  expensive: 0
+  layer: 5
+  opacity: 2
+  shape: 0
+  curveRadius: 1
+  overlapMask: 0
+  overlayType: 1
+  _overlayEnabled: 1
 --- !u!1 &1811149047
 GameObject:
   m_ObjectHideFlags: 0
@@ -40882,7 +40865,7 @@ GameObject:
   - component: {fileID: 1811428929}
   - component: {fileID: 1811428928}
   - component: {fileID: 1811428927}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -44889,7 +44872,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraRoutesParent: {fileID: 1640171015}
   curveResolution: 20
-  cameraMoveSpeed: 100
+  cameraMoveSpeed: 10
   playerDrone: {fileID: 1108862462}
   droneCamera: {fileID: 497124768}
 --- !u!20 &2018754157
@@ -46766,7 +46749,7 @@ GameObject:
   - component: {fileID: 2112445977}
   - component: {fileID: 2112445979}
   - component: {fileID: 2112445978}
-  m_Layer: 5
+  m_Layer: 3
   m_Name: line (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
