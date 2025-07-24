@@ -298,17 +298,19 @@ namespace PA_DronePack
                 {
                     if (groundDistance > 0.2f)
                     {
-                        float desiredPitchAngularVelocity = inputPitchValue * maxPitchRate; // Invert input for pitch if needed
+                        float desiredPitchAngularVelocity = inputPitchValue * maxPitchRate;
                         if (Mathf.Abs(inputPitchValue) > 0.01f)
                         {
-                            currentPitchAngularVelocity = Mathf.Lerp(currentPitchAngularVelocity, desiredPitchAngularVelocity, pitchAccelerationRate * Time.fixedDeltaTime);
+                            currentPitchAngularVelocity = Mathf.Lerp(currentPitchAngularVelocity,
+                            desiredPitchAngularVelocity, pitchAccelerationRate * Time.fixedDeltaTime);
                         }
                         else
                         {
-                            currentPitchAngularVelocity = Mathf.Lerp(currentPitchAngularVelocity, 0f, pitchDecelerationRate * Time.fixedDeltaTime);
+                            currentPitchAngularVelocity = Mathf.Lerp(currentPitchAngularVelocity, 0f,
+                            pitchDecelerationRate * Time.fixedDeltaTime);
                         }
 
-                        float desiredRollAngularVelocity = -inputRollValue * maxRollRate; // Invert input for roll if needed
+                        float desiredRollAngularVelocity = -inputRollValue * maxRollRate;
                         if (Mathf.Abs(inputRollValue) > 0.01f)
                         {
                             currentRollAngularVelocity = Mathf.Lerp(currentRollAngularVelocity, desiredRollAngularVelocity, rollAccelerationRate * Time.fixedDeltaTime);
@@ -352,20 +354,14 @@ namespace PA_DronePack
                     gustCoroutine = StartCoroutine(SimulateGust());
                     gust = false;
                 }
-                // --- NEW: Dynamic Throttle Change Rate based on current throttleForce ---
                 float effectiveThrottleChangeRate = throttleChangeRate;
-                // Calculate distance from hover point
                 float distanceFromHover = Mathf.Abs(throttleForce - hoverThrottlePoint);
-
-                // If within the sensitivity zone, reduce the effective change rate
                 if (distanceFromHover < hoverSensitivityZone)
                 {
-                    // Linearly interpolate the sensitivity multiplier from 1 (outside zone edge) to hoverSensitivityMultiplier (at hover point)
-                    // Mathf.InverseLerp gives a 0-1 value: 0 when distanceFromHover is 'hoverSensitivityZone', 1 when it's 0 (at hoverPoint)
                     float blend = Mathf.InverseLerp(hoverSensitivityZone, 0f, distanceFromHover);
                     effectiveThrottleChangeRate = Mathf.Lerp(throttleChangeRate, throttleChangeRate * hoverSensitivityMultiplier, blend);
                 }
-                float throttleDelta = liftInput * effectiveThrottleChangeRate * Time.fixedDeltaTime; // Use effective rate
+                float throttleDelta = liftInput * effectiveThrottleChangeRate * Time.fixedDeltaTime;
                 throttleForce += throttleDelta;
                 throttleForce = Mathf.Clamp(throttleForce, 0f, maxThrottleForce);
                 rigidBody.AddForce(transform.up * throttleForce, ForceMode.Acceleration);
